@@ -27,6 +27,8 @@
 *.sqlite
 *.csv
 
+/data
+
 # OS generated files #
 ######################
 .DS_Store
