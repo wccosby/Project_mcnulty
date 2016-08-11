@@ -9,33 +9,6 @@ db = SQLAlchemy(app)
 
 app.config.from_object(__name__)
 
-
-# def connect_to_database():
-#     return sqlite3.connect(app.config['LOAN_DATABASE'])
-#
-# def get_db():
-#     db = getattr(g, 'db', None)
-#     if db is None:
-#         db = g.db = connect_to_database()
-#     return db
-#
-# @app.teardown_appcontext
-# def close_connection(exception):
-#     db = getattr(g, 'db', None)
-#     if db is not None:
-#         db.close()
-#
-# def execute_query(query, args=()):
-#     cur = get_db().execute(query,args)
-#     rows = cur.fetchall()
-#     cur.close()
-#     return rows
-#
-# @app.route('/viewhead')
-# def view_head():
-#     rows = execute_query("""SELECT binary_profit_loss,profit_loss FROM loans LIMIT(10);""")
-#     return '<br>'.join(str(row) for row in rows)
-
 class Loan(db.Model):
     __tablename__ = 'loans'
     id = db.Column('index', db.Integer, primary_key=True)
@@ -53,8 +26,6 @@ class Loan(db.Model):
     profitable = db.Column('binary_profit_loss', db.Integer)
 
 
-
-
 @app.route("/lend/", methods=["POST"])
 def get_loans():
     """
@@ -62,16 +33,10 @@ def get_loans():
     Makes an SQL query to the database and retrieves loans to be recommended.
     """
     data = request.json
-    data_simp = data['example']
-    thresh = data_simp[1]
-    # thresh=0.5
-    invest_amount = data_simp[0]
-    # invest_amount = 10000
-    # num_loans = data['num_loans']
+    thresh = data['threshold']
+    invest_amount = ['loan_amount']
 
     fields = ['id', 'funded_amount', 'profit_loss', 'int_rate', 'grade', 'title', 'purpose', 'desc', 'state']
-    # fields = ['grade']
-
     loans = Loan.query.filter(
         Loan.funded_amount <= invest_amount,
         Loan.prob > thresh
@@ -81,9 +46,7 @@ def get_loans():
         { fld: getattr(loan, fld) for fld in fields}
         for loan in loans
     ]
-    # print("THE LOANS~~~~   ",loan_info[0]['purpose'])
-    # loan_info={"profit_loss":loans['profit_loss']}
-    # print(jsonify(loan_info))
+
     return jsonify(loan_data=loan_info)
 
 
