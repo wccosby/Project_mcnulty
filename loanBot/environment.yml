@@ -29,5 +29,3 @@ dependencies:
 - pip:
   - flask-sqlalchemy==2.1
   - sqlalchemy==1.0.14
-prefix: /Users/naoya/anaconda/envs/loan-pred
-
