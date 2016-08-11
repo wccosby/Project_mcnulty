@@ -26,3 +26,80 @@ nav .nav-wrapper {
     background-color:white;
     color:white;
 }
+
+
+    .sliders {
+        margin-top:2rem;
+        margin-left:20%;
+        margin-right:20%;
+    }
+
+    #loan-amount {
+        position:relative;
+        background: #00bbd3;
+        height: 250px;
+        margin:10px;
+        float:left;
+        margin-left:20%;
+        margin-right:12.5%;
+    }
+
+    span#span {
+        position:absolute;
+        z-index: 100000;
+        bottom:-4rem;
+        width:150px;
+        left:-2.6rem;
+    }
+
+    .noUi-base {
+        background:white;
+    }
+
+    #loan-amount .noUi-connect {
+        background:#00bbd3;
+    }
+
+    #num-loans {
+        position:relative;
+        background: #00bbd3;
+        height: 250px;
+        margin:10px;
+        float: left;
+        margin-left:12.5%;
+        margin-right:12.5%;
+
+    }
+
+    #num-loans .noUi-connect {
+        background:#00bbd3;
+    }
+
+
+    #risk-tolerance {
+        position:relative;
+        background: #00bbd3;
+        height: 250px;
+        margin:10px;
+        float: left;
+        margin-left:12.5%;
+        margin-right:20%;
+
+    }
+
+    #risk-tolerance .noUi-connect {
+        background:#00bbd3;
+    }
+
+    #bar_chart svg {
+        margin-left:37%;
+        margin-top:4rem;
+        fill: #4caf50;
+    }
+    #bar_chart span {
+        position:absolute;
+        margin-left: 30%;
+        font-size:2rem;
+        color:gray;
+        margin-top:4.3rem;
+    }
