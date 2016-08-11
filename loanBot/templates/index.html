@@ -74,7 +74,9 @@
     function getAndDrawChance(loan_amount, threshold, purpose){
 
         var data = JSON.stringify({
-            example: [loan_amount,threshold,purpose]
+            "loan_amount": loan_amount,
+            "threshold": threshold,
+            "purpose": purpose
         });
 
         $.ajax({
