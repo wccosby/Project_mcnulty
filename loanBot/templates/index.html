@@ -72,12 +72,78 @@
     <div id="num-loans"><span id="span">Number of Loans</span></div>
     <div id="risk-tolerance"><span id="span">Risk Tolerance</span></div>
 </div>
+<div id="bar_chart"></div>
 
-
-
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="static/d3.slider.js"></script>
 <script type="text/javascript" src="static/nouislider.min.js"></script>
 <script type="text/javascript" src="static/wNumb.js"></script>
 <script>
+
+    // Initialize values:
+    var loan_amount = 50;
+    var num_loans = 1;
+    var risk = 50;
+    var loan_pred = 10.0;
+
+    // Draw the d3 thing~
+    var chart = d3.select("#bar_chart")
+                   .append("svg:svg")
+                   .attr("width", 800)
+                   .attr("height", 100);
+
+     var chance_scale = d3.scale.linear()
+                                .domain([0, 100])
+                                .range([0, 800]);
+
+     var bar = chart.append("g")
+                    .attr("class", "bar")
+
+       bar.append("svg:rect")
+          .attr("id", "chancebar")
+          .attr("class", "bar")
+          .attr("width", chance_scale(loan_pred))
+          .attr("height", 50);
+
+     bar.append("text")
+        .attr("id", "percent_text")
+        .attr("dy", ".75em")
+        .attr("y", 15)
+        .attr("x", chance_scale(loan_pred-5))
+        .attr("text-anchor", "middle")
+        .attr("fill", "white")
+        .attr("font-size", 20)
+        .text( loan_pred.toFixed(1) + "%");
+
+    <!-- FUNCTION TO GET PREDICTIONS AND START ALTERING D3 STUFFZ  -->
+    function getAndDrawChance(loan_amount, threshold){
+
+        var data = JSON.stringify({
+            example: [loan_amount,threshold]
+        });
+
+        $.ajax({
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            url: "/lend/",
+            dataType: "json",
+            async: true,
+            data: data,
+            success: function (data) {
+                console.log("THA DATA: ",data);
+                var chance = 100 * data["profit_loss"]/parseFloat(data['funded_amount']);
+                d3.select("#chancebar")
+                .attr("width", chance_scale(chance));
+                d3.select("#percent_text")
+                .attr("x", chance_scale(chance-5))
+                .text(chance.toFixed(1) + "%");
+            },
+                error: function (result) {
+            }
+        })
+    }
+
 
 
 
@@ -155,12 +221,14 @@
     // Controls what happens when sliders are used
     loan_amnt_slider.noUiSlider.on('update',function(values, amnt_handle){
         loan_amount = parseFloat(values[amnt_handle]);
+        getAndDrawChance(loan_amount,risk);
     });
     num_loans_slider.noUiSlider.on('update',function(values, num_loans_handle){
         num_loans = parseFloat(values[num_loans_handle]);
     });
     risk_slider.noUiSlider.on('update',function(values, risk_handle){
         risk = (1 - (parseFloat(values[risk_handle])/100));
+        getAndDrawChance(loan_amount,risk);
     });
 
 
