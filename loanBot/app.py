@@ -85,7 +85,7 @@ def get_loans():
         { fld: getattr(loan, fld) for fld in fields}
         for loan in loans
     ]
-    # print("THE LOANS~~~~   ",loan_info)
+    print("THE LOANS~~~~   ",loan_info[0]['purpose'])
     # loan_info={"profit_loss":loans['profit_loss']}
     # print(jsonify(loan_info))
     return Response(json.dumps(loan_info),  mimetype='application/json')
