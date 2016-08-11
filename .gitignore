@@ -1,3 +1,15 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Env
+env/
+
+# IPython NB Checkpoints
+.ipynb_checkpoints/
+
+
 # Compiled source #
 ###################
 *.com
@@ -26,6 +38,11 @@
 *.sql
 *.sqlite
 *.csv
+
+# Exclude Model Pickle Files
+*.pickle
+*.pkl
+*.npy
 
 /data
 
