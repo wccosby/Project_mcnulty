@@ -1,10 +1,35 @@
 <link rel="stylesheet" href="static/main.css"/>
+<link rel="stylesheet" href="static/materialize.min.css"/>
+
+
+<div class="input-field col s12">
+    <select multiple>
+        <option value="" disabled selected>Choose your option</option>
+        <option value="1">Option 1</option>
+        <option value="2">Option 2</option>
+        <option value="3">Option 3</option>
+    </select>
+    <label>Loan Purpose</label>
+</div>
+
 <div id="bar_chart"><span class="roi-label">ROI</span></div>
 <div class="sliders">
     <div id="loan-amount"><span id="span">Amount to Loan</span></div>
     <!-- <div id="num-loans"><span id="span">Number of Loans</span></div> -->
     <div id="risk-tolerance"><span id="span">Risk Tolerance</span></div>
+
+
 </div>
+
+<!-- <div class="input-field col s12">
+    <select multiple>
+        <option value="" disabled selected>Choose your option</option>
+        <option value="1">Option 1</option>
+        <option value="2">Option 2</option>
+        <option value="3">Option 3</option>
+    </select>
+    <label>Loan Purpose</label>
+</div> -->
 
 
 
@@ -15,6 +40,7 @@
 <script src="static/d3.slider.js"></script>
 <script type="text/javascript" src="static/nouislider.min.js"></script>
 <script type="text/javascript" src="static/wNumb.js"></script>
+<script type="text/javascript" src="static/materialize.min.js"></script>
 <script>
 
     // Initialize values:
