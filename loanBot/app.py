@@ -44,7 +44,7 @@ def get_loans():
         # Loan.profitable == 1
         )
     if purpose != 'any':
-        loans = loans.query.filter(
+        loans = loans.filter(
         Loan.purpose == purpose
         )
     loans = loans.limit(100)
