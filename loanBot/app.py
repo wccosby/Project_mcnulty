@@ -85,7 +85,7 @@ def get_loans():
     # print("THE LOANS~~~~   ",loan_info[0]['purpose'])
     # loan_info={"profit_loss":loans['profit_loss']}
     # print(jsonify(loan_info))
-    return jsonify(data=loan_info)
+    return jsonify(loan_data=loan_info)
 
 
 
