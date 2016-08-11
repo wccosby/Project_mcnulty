@@ -1,21 +1,32 @@
-<div class="input-field col s12">
-    <select multiple>
-        <option value="" disabled selected>Choose your option</option>
-        <option value="1">Option 1</option>
-        <option value="2">Option 2</option>
-        <option value="3">Option 3</option>
-    </select>
-    <label>Loan Purpose</label>
-</div>
+
 
 <div id="bar_chart"><span class="roi-label">ROI</span></div>
 <div class="sliders">
     <div id="loan-amount"><span id="span">Amount to Loan</span></div>
     <!-- <div id="num-loans"><span id="span">Number of Loans</span></div> -->
     <div id="risk-tolerance"><span id="span">Risk Tolerance</span></div>
-
-
 </div>
+<div class="input-field col s12">
+    <select>
+        <!-- <option value="" disabled selected>Choose Loan Purpose</option> -->
+        <option value="any" selected>Any</option>
+        <option value="credit_card">Credit Card</option>
+        <option value="car">Car</option>
+        <option value="small_business">Small Business</option>
+        <option value="wedding">Wedding</option>
+        <option value="debt_consolidation">Debt Consolidation</option>
+        <option value="home_improvement">Home Improvement</option>
+        <option value="major_purchase">Major Purchase</option>
+        <option value="medical">Medical</option>
+        <option value="moving">Moving</option>
+        <option value="vacation">Vacation</option>
+        <option value="house">House</option>
+        <option value="renewable_energy">Renewable Energy</option>
+        <option value="educational">Education</option>
+        <option value="other">Other</option>
+    </select>
+    <label>Loan Purpose</label>
+</div>`
 
 
 <!-- JAVASCRIPT -->
@@ -60,10 +71,10 @@
         .text( loan_pred.toFixed(1) + "%");
 
     <!-- FUNCTION TO GET PREDICTIONS AND START ALTERING D3 STUFFZ  -->
-    function getAndDrawChance(loan_amount, threshold){
+    function getAndDrawChance(loan_amount, threshold, purpose){
 
         var data = JSON.stringify({
-            example: [loan_amount,threshold]
+            example: [loan_amount,threshold,purpose]
         });
 
         $.ajax({
