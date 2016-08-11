@@ -1,7 +1,7 @@
 <style>
 
     .sliders {
-        margin-top:5%;
+        margin-top:2rem;
         margin-left:20%;
         margin-right:20%;
     }
@@ -63,16 +63,27 @@
         background:#00bbd3;
     }
 
-
+    #bar_chart svg {
+        margin-left:37%;
+        margin-top:4rem;
+        fill: #4caf50;
+    }
+    #bar_chart span {
+        position:absolute;
+        margin-left: 30%;
+        font-size:2rem;
+        color:gray;
+        margin-top:4.3rem;
+    }
 
 </style>
-
+<div id="bar_chart"><span class="roi-label">ROI</span></div>
 <div class="sliders">
     <div id="loan-amount"><span id="span">Amount to Loan</span></div>
     <div id="num-loans"><span id="span">Number of Loans</span></div>
     <div id="risk-tolerance"><span id="span">Risk Tolerance</span></div>
 </div>
-<div id="bar_chart"></div>
+
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="http://d3js.org/d3.v3.min.js"></script>
@@ -82,7 +93,7 @@
 <script>
 
     // Initialize values:
-    var loan_amount = 50;
+    var loan_amount = 10000;
     var num_loans = 1;
     var risk = 50;
     var loan_pred = 10.0;
@@ -131,13 +142,32 @@
             async: true,
             data: data,
             success: function (data) {
-                console.log("THA DATA: ",data);
-                var chance = 100 * data["profit_loss"]/parseFloat(data['funded_amount']);
-                d3.select("#chancebar")
-                .attr("width", chance_scale(chance));
-                d3.select("#percent_text")
-                .attr("x", chance_scale(chance-5))
-                .text(chance.toFixed(1) + "%");
+                // data is returned as a list of json objects
+                // to access an element do data[i]['<field_name>']
+                // console.log(data[0]['profit_loss']);
+                // console.log(data.length)
+                var avg_roi = 0;
+                if (data.length > 0){
+                    for (i = 0; i < data.length; i++) {
+                        avg_roi += 100 * data[i]['profit_loss']/data[i]['funded_amount'];
+                    }
+                    avg_roi = avg_roi/data.length;
+                    console.log("avg roi: ",avg_roi);
+                    // var chance = 100 * data[i]["profit_loss"]/parseFloat(data[i]['funded_amount']);
+                    // console.log(chance);
+                    d3.select("#chancebar")
+                    .attr("width", chance_scale(avg_roi*5));
+                    d3.select("#percent_text")
+                    .attr("x", chance_scale(avg_roi*5-5))
+                    .text(avg_roi.toFixed(1) + "%");
+                }
+                else {
+                    d3.select("#chancebar")
+                    .attr("width", chance_scale(avg_roi*5));
+                    d3.select("#percent_text")
+                    .attr("x", chance_scale(avg_roi*5-5))
+                    .text(avg_roi.toFixed(1) + "%");
+                }
             },
                 error: function (result) {
             }
@@ -150,7 +180,7 @@
     var loan_amnt_slider = document.getElementById('loan-amount');
     var loan_amnt_value = document.getElementById('loan_amount');
     noUiSlider.create(loan_amnt_slider, {
-        start: 50,
+        start: 10000,
         connect:'lower',
         orientation:'vertical',
         direction:'rtl',
@@ -230,6 +260,8 @@
         risk = (1 - (parseFloat(values[risk_handle])/100));
         getAndDrawChance(loan_amount,risk);
     });
+
+    getAndDrawChance(loan_amount,risk);
 
 
 

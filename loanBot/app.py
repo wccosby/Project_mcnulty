@@ -1,5 +1,6 @@
 import sqlite3
-
+from flask import Response
+import json
 
 from flask import Flask, request, g, jsonify, request, render_template
 from flask_sqlalchemy import SQLAlchemy
@@ -73,20 +74,21 @@ def get_loans():
     # num_loans = data['num_loans']
 
     fields = ['id', 'funded_amount', 'profit_loss', 'int_rate', 'grade', 'title', 'purpose', 'desc', 'state']
+    # fields = ['grade']
 
     loans = Loan.query.filter(
         Loan.funded_amount <= invest_amount,
         Loan.prob > thresh
         # Loan.profitable == 1
-        ).limit(1)
+        ).limit(100)
     loan_info = [
         { fld: getattr(loan, fld) for fld in fields}
         for loan in loans
     ]
-    print("THE LOANS~~~~   ",loan_info)
+    # print("THE LOANS~~~~   ",loan_info)
     # loan_info={"profit_loss":loans['profit_loss']}
-    print("RETURNED DATA: ", jsonify(loan_info))
-    return jsonify(loan_info)
+    # print(jsonify(loan_info))
+    return Response(json.dumps(loan_info),  mimetype='application/json')
 
 
 
@@ -94,9 +96,6 @@ def get_loans():
 def main_page():
     data = request.json
     return render_template("base.html")
-
-
-
 
 if __name__ == '__main__':
   app.run(debug=True)
