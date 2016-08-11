@@ -34,7 +34,7 @@ def get_loans():
     """
     data = request.json
     thresh = data['threshold']
-    invest_amount = ['loan_amount']
+    invest_amount = data['loan_amount']
 
     fields = ['id', 'funded_amount', 'profit_loss', 'int_rate', 'grade', 'title', 'purpose', 'desc', 'state']
     loans = Loan.query.filter(
