@@ -1,7 +1,4 @@
 import sqlite3
-from flask import Response
-import json
-
 from flask import Flask, request, g, jsonify, request, render_template
 from flask_sqlalchemy import SQLAlchemy
 
@@ -88,7 +85,7 @@ def get_loans():
     # print("THE LOANS~~~~   ",loan_info[0]['purpose'])
     # loan_info={"profit_loss":loans['profit_loss']}
     # print(jsonify(loan_info))
-    return Response(json.dumps(loan_info),  mimetype='application/json')
+    return jsonify(data=loan_info)
 
 
 
@@ -97,5 +94,9 @@ def main_page():
     data = request.json
     return render_template("base.html")
 
+def main(port=9000, debug=True):
+    logger.info("Starting App at Port: {} with Debug Option: {}".format(port, debug))
+    app.run(port=port, debug=debug)
+
 if __name__ == '__main__':
-  app.run(debug=True)
+    main()
