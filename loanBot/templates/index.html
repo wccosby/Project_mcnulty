@@ -1,7 +1,3 @@
-<link rel="stylesheet" href="static/main.css"/>
-<link rel="stylesheet" href="static/materialize.min.css"/>
-
-
 <div class="input-field col s12">
     <select multiple>
         <option value="" disabled selected>Choose your option</option>
@@ -21,27 +17,12 @@
 
 </div>
 
-<!-- <div class="input-field col s12">
-    <select multiple>
-        <option value="" disabled selected>Choose your option</option>
-        <option value="1">Option 1</option>
-        <option value="2">Option 2</option>
-        <option value="3">Option 3</option>
-    </select>
-    <label>Loan Purpose</label>
-</div> -->
-
-
 
 <!-- JAVASCRIPT -->
-
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-<script src="http://d3js.org/d3.v3.min.js"></script>
-<script src="static/d3.slider.js"></script>
-<script type="text/javascript" src="static/nouislider.min.js"></script>
-<script type="text/javascript" src="static/wNumb.js"></script>
-<script type="text/javascript" src="static/materialize.min.js"></script>
 <script>
+    $(document).ready(function() {
+        $('select').material_select();
+    });
 
     // Initialize values:
     var loan_amount = 10000;
@@ -93,6 +74,7 @@
             async: true,
             data: data,
             success: function (data) {
+                console.log(data.length);
                 // data is returned as a list of json objects
                 // to access an element do data[i]['<field_name>']
                 // console.log(data[0]['profit_loss']);

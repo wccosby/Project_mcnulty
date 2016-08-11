@@ -63,7 +63,6 @@ def get_loans():
     """
     data = request.json
     data_simp = data['example']
-    print("THIS IS THE DATA: ", data_simp)
     thresh = data_simp[1]
     # thresh=0.5
     invest_amount = data_simp[0]
