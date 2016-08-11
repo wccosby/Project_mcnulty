@@ -94,8 +94,7 @@ def main_page():
     data = request.json
     return render_template("base.html")
 
-def main(port=9000, debug=True):
-    logger.info("Starting App at Port: {} with Debug Option: {}".format(port, debug))
+def main(host="0.0.0.0", port=9000, debug=True):
     app.run(port=port, debug=debug)
 
 if __name__ == '__main__':
