@@ -7,7 +7,7 @@
     <div id="risk-tolerance"><span id="span">Risk Tolerance</span></div>
 </div>
 <div class="input-field col s12">
-    <select>
+    <select id='loan-purpose' >
         <!-- <option value="" disabled selected>Choose Loan Purpose</option> -->
         <option value="any" selected>Any</option>
         <option value="credit_card">Credit Card</option>
@@ -34,6 +34,9 @@
     $(document).ready(function() {
         $('select').material_select();
     });
+
+    var purpose_field = document.getElementById('loan-purpose');
+    var purpose = 'any';
 
     // Initialize values:
     var loan_amount = 10000;
@@ -198,17 +201,22 @@
     // Controls what happens when sliders are used
     loan_amnt_slider.noUiSlider.on('update',function(values, amnt_handle){
         loan_amount = parseFloat(values[amnt_handle]);
-        getAndDrawChance(loan_amount,risk);
+        getAndDrawChance(loan_amount,risk,purpose);
     });
     // num_loans_slider.noUiSlider.on('update',function(values, num_loans_handle){
     //     num_loans = parseFloat(values[num_loans_handle]);
     // });
     risk_slider.noUiSlider.on('update',function(values, risk_handle){
         risk = (1 - (parseFloat(values[risk_handle])/100));
-        getAndDrawChance(loan_amount,risk);
+        getAndDrawChance(loan_amount,risk,purpose);
     });
 
-    getAndDrawChance(loan_amount,risk);
+    $('#loan-purpose').change(function() {
+        purpose = purpose_field.value;
+        getAndDrawChance(loan_amount,risk,purpose);
+    })
+
+    getAndDrawChance(loan_amount,risk,purpose);
 
 
 
