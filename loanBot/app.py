@@ -95,7 +95,7 @@ def main_page():
     return render_template("base.html")
 
 def main(host="0.0.0.0", port=9000, debug=True):
-    app.run(port=port, debug=debug)
+    app.run(host=host, port=port, debug=debug)
 
 if __name__ == '__main__':
     main()
