@@ -25,4 +25,4 @@ dependencies:
 - xz=5.2.2=0
 - zlib=1.2.8=3
 - pip:
-  - flask-sqlalchemy=2.1
+  - flask-sqlalchemy==2.1
