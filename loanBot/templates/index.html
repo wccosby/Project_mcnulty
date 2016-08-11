@@ -72,6 +72,7 @@
                 // console.log(data[0]['profit_loss']);
                 // console.log(data.length)
                 var avg_roi = 2;
+                var data = data['loan_data']
                 if (data.length > 0){
                     for (i = 0; i < data.length; i++) {
                         avg_roi += 100 * data[i]['profit_loss']/data[i]['funded_amount'];
