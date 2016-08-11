@@ -35,13 +35,19 @@ def get_loans():
     data = request.json
     thresh = data['threshold']
     invest_amount = data['loan_amount']
+    purpose = data['purpose']
 
     fields = ['id', 'funded_amount', 'profit_loss', 'int_rate', 'grade', 'title', 'purpose', 'desc', 'state']
     loans = Loan.query.filter(
         Loan.funded_amount <= invest_amount,
         Loan.prob > thresh
         # Loan.profitable == 1
-        ).limit(100)
+        )
+    if purpose != 'any':
+        loans = loans.query.filter(
+        Loan.purpose == purpose
+        )
+    loans = loans.limit(100)
     loan_info = [
         { fld: getattr(loan, fld) for fld in fields}
         for loan in loans
