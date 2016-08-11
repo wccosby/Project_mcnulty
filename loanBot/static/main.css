@@ -1,0 +1,28 @@
+nav .nav-wrapper {
+    background-color: #00bbd3;
+}
+
+.brand-logo {
+    margin-left:3rem;
+}
+#nav-mobile {
+    margin-right:2rem;
+}
+
+.navigation-bar {
+    margin-top:3rem;
+    margin-left: auto;
+    margin-right: auto;
+    width:60%;
+}
+
+#amount-to-loan {
+    width:60%;
+    margin-left:20%;
+    margin-top:3rem;
+}
+
+#amount-to-loan input::after {
+    background-color:white;
+    color:white;
+}
