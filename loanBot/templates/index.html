@@ -60,6 +60,7 @@
 
      var bar = chart.append("g")
                     .attr("class", "bar")
+                    .attr("dx","2rem");
 
        bar.append("svg:rect")
           .attr("id", "chancebar")
@@ -113,7 +114,7 @@
                     // .attr("class",function(avg_roi) { return (avg_roi < 0 ? "negative":"positive");})
                     .attr("width", x(chance_scale(avg_roi)*20));
                     d3.select("#percent_text")
-                    .attr("x", x(chance_scale(avg_roi*5-10)))
+                    .attr("x", x(chance_scale(avg_roi*20+40)))
                     .text(avg_roi.toFixed(1) + "%");
                 }
                 else {
