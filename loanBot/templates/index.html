@@ -1,4 +1,23 @@
+<style>
+.bar--positive {
+  fill: steelblue;
+}
 
+.bar--negative {
+  fill: darkorange;
+}
+
+.axis text {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+</style>
 
 <div id="bar_chart"><span class="roi-label">ROI</span></div>
 <div class="sliders">
@@ -42,37 +61,56 @@
     var loan_amount = 10000;
     var num_loans = 1;
     var risk = 50;
-    var loan_pred = 10.0;
+    var loan_pred = 5;
 
     // Draw the d3 thing~
-    var chart = d3.select("#bar_chart")
-                   .append("svg:svg")
-                   .attr("width", 600)
-                   .attr("height", 100);
+    var margin = {top: 20, right: 30, bottom: 40, left: 30},
+                    width = 300 - margin.left - margin.right,
+                    height = 100 - margin.top - margin.bottom;
 
-     var chance_scale = d3.scale.linear()
-                                .domain([0, 100])
-                                .range([0, 600]);
+
+
+    //  var chance_scale = d3.scale.linear()
+    //                             .domain([0, 100])
+    //                             .range([0, 600]);
 
     var x = d3.scale.linear()
-            .domain([-100,400])
-            .range([0,chance_scale(loan_pred)]);
+            .range([0,width])
+            .domain([-5,15]);
 
-     var bar = chart.append("g")
-                    .attr("class", "bar")
-                    .attr("dx","2rem");
+    // var xAxis = d3.svg.axis()
+    //             .scale(x)
+    //             .orient("bottom");
 
-       bar.append("svg:rect")
-          .attr("id", "chancebar")
-          .attr("class", "bar")
-          .attr("width", chance_scale(loan_pred))
-          .attr("height", 50);
+    // var chart = d3.select("#bar_chart")
+    //                .append("svg:svg")
+    //                .attr("width", 600)
+    //                .attr("height", 100);
+
+    var svg = d3.select('#bar_chart').append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+        //   .append("g")
+        //     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    var bar = svg.append("g")
+                .attr("class", "bar")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+                // .call(xAxis);
+
+   bar.append("svg:rect")
+      .attr("id", "chancebar")
+      .attr("class", "bar")
+      .attr("x",x(0))
+      .attr("width", x(loan_pred) - x(0))
+    //   .attr("transform","translate(" + x(0) + ",0)")
+      .attr("height", 50);
 
      bar.append("text")
         .attr("id", "percent_text")
         .attr("dy", ".75em")
         .attr("y", 15)
-        .attr("x", chance_scale(loan_pred-5))
+        .attr("x", x(0))
         .attr("text-anchor", "middle")
         .attr("fill", "black")
         .attr("font-size", 20)
@@ -95,7 +133,6 @@
             async: true,
             data: data,
             success: function (data) {
-                console.log(data.length);
                 // data is returned as a list of json objects
                 // to access an element do data[i]['<field_name>']
                 // console.log(data[0]['profit_loss']);
@@ -110,18 +147,30 @@
                     console.log("avg roi: ",avg_roi);
                     // var chance = 100 * data[i]["profit_loss"]/parseFloat(data[i]['funded_amount']);
                     // console.log(chance);
-                    d3.select("#chancebar")
-                    // .attr("class",function(avg_roi) { return (avg_roi < 0 ? "negative":"positive");})
-                    .attr("width", x(chance_scale(avg_roi)*20));
-                    d3.select("#percent_text")
-                    .attr("x", x(chance_scale(avg_roi*20+40)))
-                    .text(avg_roi.toFixed(1) + "%");
+                    if (avg_roi > 0){
+                        d3.select("#chancebar")
+                        // .attr("class",function(avg_roi) { return (avg_roi < 0 ? "negative":"positive");})
+                        .attr("x", x(0))
+                        .attr("width", x((avg_roi)*20)-x(0))
+                        .attr("fill",'#4caf50');
+                        d3.select("#percent_text")
+                        .attr("x", x(0))
+                        .text(avg_roi.toFixed(1) + "%");
+                    } else {
+                        d3.select("#chancebar")
+                        .attr('x',x(avg_roi))
+                        .attr("width",x(0)-x(avg_roi))
+                        .attr('fill','red');
+                        d3.select("#percent_text")
+                        .attr("x",x(0))
+                        .text(avg_roi.toFixed(1) + "%");
+                    }
                 }
                 else {
                     d3.select("#chancebar")
-                    .attr("width", x(chance_scale(avg_roi)*5));
+                    .attr("width", x(avg_roi)*5);
                     d3.select("#percent_text")
-                    .attr("x", x(chance_scale(avg_roi*5-10)))
+                    .attr("x", x(avg_roi*5-10))
                     .text(avg_roi.toFixed(1) + "%");
                 }
             },
