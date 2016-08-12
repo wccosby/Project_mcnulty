@@ -57,9 +57,6 @@ def get_loans():
 
     return jsonify(loan_data=loan_info)
 
-@app.route('/explore')
-def explore():
-    return render_template("explore.html")
 
 @app.route('/', methods=('GET','POST'))
 @app.route('/loan', methods=('GET','POST'))
