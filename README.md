@@ -1,5 +1,5 @@
 ## Project McNulty
-#### Team 4 (@naoyak, @cvh, @WDUpdegraff, @wccosby)
+#### Team 4 ([@naoyak](https://github.com/naoyak), [@cwvanharen](https://github.com/cwvanharen), [@WDUpdegraff](https://github.com/WDUpdegraff), [@wccosby](https://github.com/wccosby))
 
 ### LoanBot: A Lending Club Robo-Advisor
 
