@@ -190,10 +190,13 @@
                 }
                 else {
                     d3.select("#chancebar")
-                    .attr("width", x(avg_roi));
+                    .attr('x',x(0))
+                    .attr("width",x(0))
+                    .attr('fill','white');
                     d3.select("#percent_text")
-                    .attr("x", x(avg_roi-10))
-                    .text(avg_roi.toFixed(1) + "%");
+                    .attr("x",x(0)+30)
+                    .attr("fill","black")
+                    .text(0 + "%");
                 }
             },
                 error: function (result) {
