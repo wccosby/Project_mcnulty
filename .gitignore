@@ -6,6 +6,9 @@ __pycache__/
 # Virtual Env
 env/
 
+# Data folder
+
+
 # IPython NB Checkpoints
 .ipynb_checkpoints/
 
@@ -38,6 +41,7 @@ env/
 *.sql
 *.sqlite
 *.csv
+*.db
 
 # Exclude Model Pickle Files
 *.pickle
