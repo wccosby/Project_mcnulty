@@ -1,21 +1,10 @@
 <style>
-.bar--positive {
-  fill: steelblue;
-}
-
-.bar--negative {
-  fill: darkorange;
-}
-
-.axis text {
-  font: 10px sans-serif;
-}
-
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
+#modal-btn .modal-trigger .btn {
+    position:relative;
+    margin-right:45%;
+    width:10%;
+    margin-left:45%;
+    top:6rem;
 }
 </style>
 
@@ -45,11 +34,45 @@
         <option value="other">Other</option>
     </select>
     <label>Loan Purpose</label>
-</div>`
+</div>
+
+<!-- Modal Trigger -->
+<a id="modal-btn" class="modal-trigger waves-effect waves-light btn" href="#modal1">See Loan Information</a>
+
+<!-- Modal Structure -->
+<div id="modal1" class="modal modal-fixed-footer">
+    <div class="modal-content">
+        <h4 class="modal-header"></h4>
+        <p class='modal-loan-purpose'><strong>Loan Purpose:</strong> <span class='modal-purpose'></span></p>
+        <p class='modal-loan-grade'><strong>Loan Grade: </strong><span class="modal-grade"></span></p>
+        <!-- <p class="modal-loan-desc"><strong>Loan Description: </strong><span class='modal-desc'></span><p> -->
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Agree</a>
+    </div>
+</div>
 
 
 <!-- JAVASCRIPT -->
 <script>
+    var title = 'No Loans Found';
+    var actual_loan_purpose = "NA";
+    var loan_grade = 'NA';
+    var loan_desc = 'NA';
+
+    $(document).ready(function(){
+        // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+        $('.modal-trigger').leanModal();
+
+    });
+
+    $('#modal-btn').click(function(e) {
+        $('.modal-header').html(title);
+        $('.modal-purpose').html(actual_loan_purpose);
+        $('.modal-grade').html(loan_grade);
+        // $('.modal-desc').html(loan_desc);
+    });
+
     $(document).ready(function() {
         $('select').material_select();
     });
@@ -119,18 +142,19 @@
                 // console.log(data[0]['profit_loss']);
                 // console.log(data.length)
                 var avg_roi = 2;
-                var data = data['loan_data']
+                var data = data['loan_data'];
                 if (data.length > 0){
+                    title = data[0]['title'];
+                    actual_loan_purpose = data[0]['purpose'];
+                    loan_grade = data[0]['grade'];
+                    // loan_desc = data[0]['desc'];
+
                     for (i = 0; i < data.length; i++) {
                         avg_roi += 100 * data[i]['profit_loss']/data[i]['funded_amount'];
                     }
                     avg_roi = avg_roi/data.length;
-                    console.log("avg roi: ",avg_roi);
-                    // var chance = 100 * data[i]["profit_loss"]/parseFloat(data[i]['funded_amount']);
-                    // console.log(chance);
                     if (avg_roi > 0){
                         d3.select("#chancebar")
-                        // .attr("class",function(avg_roi) { return (avg_roi < 0 ? "negative":"positive");})
                         .attr("x", x(0))
                         .attr("width", x((avg_roi))-x(0))
                         .attr("fill",'#4caf50');

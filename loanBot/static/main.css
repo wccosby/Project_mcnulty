@@ -58,7 +58,7 @@ nav .nav-wrapper {
 
 span#span {
     position:absolute;
-    z-index: 100000;
+    z-index: 100;
     bottom:-4rem;
     width:150px;
     left:-2.6rem;
@@ -114,4 +114,14 @@ span#span {
     font-size:2rem;
     color:#00bbd3;
     margin-top:2rem;
+}
+
+#modal-btn {
+    position:relative !important;
+    margin-right:37% !important;
+    width:25% !important;
+    margin-left:37% !important;
+    top:6rem !important;
+    background-color:#00bbd3 !important;
+    margin-bottom:10rem !important;
 }
