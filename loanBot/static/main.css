@@ -1,3 +1,7 @@
+html {
+    font-family: GillSans, Calibri, Trebuchet, sans-serif;
+  }
+
 nav .nav-wrapper {
     background-color: #00bbd3;
 }
