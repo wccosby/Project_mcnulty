@@ -4,7 +4,7 @@
 <div class="sliders">
     <div id="loan-amount"><span id="span">Amount to Loan</span></div>
     <!-- <div id="num-loans"><span id="span">Number of Loans</span></div> -->
-    <div id="risk-tolerance"><span id="span">Risk Tolerance</span></div>
+    <div id="risk-tolerance"><span id="span">Risk Level</span></div>
 </div>
 <div class="input-field col s12">
     <select id='loan-purpose' >
@@ -47,12 +47,12 @@
     // Draw the d3 thing~
     var chart = d3.select("#bar_chart")
                    .append("svg:svg")
-                   .attr("width", 800)
+                   .attr("width", 600)
                    .attr("height", 100);
 
      var chance_scale = d3.scale.linear()
                                 .domain([0, 100])
-                                .range([0, 800]);
+                                .range([0, 600]);
 
      var bar = chart.append("g")
                     .attr("class", "bar")
@@ -207,7 +207,7 @@
     //     num_loans = parseFloat(values[num_loans_handle]);
     // });
     risk_slider.noUiSlider.on('update',function(values, risk_handle){
-        risk = (1 - (parseFloat(values[risk_handle])/100));
+        risk = (parseFloat(values[risk_handle])/100);
         getAndDrawChance(loan_amount,risk,purpose);
     });
 
