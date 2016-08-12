@@ -110,9 +110,9 @@
         .attr("id", "percent_text")
         .attr("dy", ".75em")
         .attr("y", 15)
-        .attr("x", x(0))
+        .attr("x", x(0)+30)
         .attr("text-anchor", "middle")
-        .attr("fill", "black")
+        .attr("fill", "white")
         .attr("font-size", 20)
         .text( loan_pred.toFixed(1) + "%");
 
@@ -151,10 +151,11 @@
                         d3.select("#chancebar")
                         // .attr("class",function(avg_roi) { return (avg_roi < 0 ? "negative":"positive");})
                         .attr("x", x(0))
-                        .attr("width", x((avg_roi)*20)-x(0))
+                        .attr("width", x((avg_roi))-x(0))
                         .attr("fill",'#4caf50');
                         d3.select("#percent_text")
-                        .attr("x", x(0))
+                        .attr("x", x(0)+30)
+                        .attr("fill","black")
                         .text(avg_roi.toFixed(1) + "%");
                     } else {
                         d3.select("#chancebar")
@@ -162,15 +163,16 @@
                         .attr("width",x(0)-x(avg_roi))
                         .attr('fill','red');
                         d3.select("#percent_text")
-                        .attr("x",x(0))
+                        .attr("x",x(0)+30)
+                        .attr("fill","red")
                         .text(avg_roi.toFixed(1) + "%");
                     }
                 }
                 else {
                     d3.select("#chancebar")
-                    .attr("width", x(avg_roi)*5);
+                    .attr("width", x(avg_roi));
                     d3.select("#percent_text")
-                    .attr("x", x(avg_roi*5-10))
+                    .attr("x", x(avg_roi-10))
                     .text(avg_roi.toFixed(1) + "%");
                 }
             },

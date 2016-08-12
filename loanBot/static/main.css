@@ -104,14 +104,14 @@ span#span {
 }
 
 #bar_chart svg {
-    margin-left:37%;
+    margin-left:40%;
     margin-top:4rem;
     fill: #4caf50;
 }
 #bar_chart span {
     position:absolute;
-    margin-left: 30%;
+    margin-left: 46%;
     font-size:2rem;
-    color:gray;
-    margin-top:4.3rem;
+    color:#00bbd3;
+    margin-top:2rem;
 }
