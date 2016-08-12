@@ -48,7 +48,6 @@ env/
 *.pkl
 *.npy
 
-/data
 
 # OS generated files #
 ######################
