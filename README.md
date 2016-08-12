@@ -1,91 +1,20 @@
 ## Project McNulty
-###### Week 4 - Week 6
+#### Team 4 ([@naoyak](https://github.com/naoyak), [@cwvanharen](https://github.com/cwvanharen), [@WDUpdegraff](https://github.com/WDUpdegraff), [@wccosby](https://github.com/wccosby))
 
+### LoanBot: A Lending Club Robo-Advisor
 
-|  |  |
-|-------|-------|
-| **Design** | Group brainstorming |
-| **Data** | Labeled UCI data; Relational Databases |
-| **Modeling** | Classification/Supervised Learning |
-| **Tools** | MySQL; cloud servers; scikit-learn |
-| **Communication** | Data visualization; written reports |
+LoanBot is an app for prospective investors on [Lending Club](https://www.lendingclub.com/), a P2P consumer lending platform. Enter the amount of money you have available to lend, your risk appetite level, and the type of loan you want to fund, and LoanBot will find loans for you to fund!
 
+#### Tools used
+- `scikit-learn`
+- Flask
+- D3
+- Amazon EC2
+- SQLite
 
-### Synopsis:
-
-In Project McNulty, students work "individually, together" as members of the internal data science team for fabricated companies. While the coursework focuses on supervised learning and relational databases, in Project McNulty the students apply these to their work, as well as continuing to develop their skills in brainstorming and data science project design, and in communication their deliverable is a document similar to an internal report, which uses prose and figures to accurately convey their results while still being mindful of audience breadth.
-
-
----
-
-## Groups for Project McNulty
-
-Group 1: Deepak, Jeff, Justin, Saniya
-
-Group 2: Elliot, Mark, Marwin, Rahim
-
-Group 3: Jason T, Jason W, Maroof, Ric
-
-Group 4: Carl, Derek, Naoya, Will C
-
-Group 5: Allen, Cynthia, John, Sameh
-
-Group 6: Alex, Brian, Christie
-
----
-
-
-### Goals
-* Exposure to classification methods, understanding of their use, and practice implementing them using scikit-learn
-* Rigorous introduction to SQL and competence with general concepts of relational databases
-* Additional familiarity with data science design process, particularly effective brainstorming and design in groups.
-
-### Assessments
-By the end of week 4, students must:
-
-* Demonstrate good time management by submitting their "pickled" Project Luther materials
-* Create an outline document previewing the work they will complete in weeks 5 and 6, which adequately addresses the business concerns of the theoretical company they have decided to "work for."
-
-
----
-
-
-### How it works:
-
-Bootcampers are split into groups such that each group is the "internal data science team" for a theoretical company. Students will work on individual projects, but the idea is that the groups topics will overlap (ex: Health Industry Group)  such that they can share data (SQL databases), etc.
-
-They will use classification algorithms, SQL databases, and datasets (that they find) to create insights to help the company toward its goals.
-
-
----
-
-
-### Sample Datasets:
-
-UCI Dataset ([Heart Disease](https://archive.ics.uci.edu/ml/datasets/Heart+Disease) or [Census Income](https://archive.ics.uci.edu/ml/datasets/Census+Income))
-
-
----
-### Timeline:
-
-* ##### Week 4:
-  * Groups are created
-  * Groups "create" their company and brainstorm their project goals
-
-
-* ##### Week 5:
-  * Individuals work on their analyses
-  * Groups create a meeting agenda which gives an overview of the work they will present in the final report
-  * Individuals aim to finish the quantitative aspects of their analysis by the end of this week
-
-* ##### Week 6:
-  * Individuals work on visualizations of their data and analyses, finalizing both.
-  * On Thursday, teams meet to present their reports to each other and give peer feedback.
-  * The final version of the integrated team report is due on Friday.
-
-
-### McNulty Data
-
- * [Bank Marketing](https://archive.ics.uci.edu/ml/datasets/Bank+Marketing)
- * [Heart Disease](https://archive.ics.uci.edu/ml/datasets/Heart+Disease)
- * [Census Income](https://archive.ics.uci.edu/ml/datasets/Census+Income)
+#### Deployment instructions
+- Obtain preprocessed `loans.db` SQLite file and place inside `loanBot/data` directory
+- Create conda environment: `conda env create -f environment.yml`
+- Activate env: `source activate loan-pred`
+- Run app: `python app.py`
+- Navigate to `0.0.0.0:9000`
