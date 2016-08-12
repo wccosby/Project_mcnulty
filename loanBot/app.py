@@ -7,6 +7,8 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data/loans.db'
 db = SQLAlchemy(app)
 
+LOAN_MARGIN = 0.02
+
 app.config.from_object(__name__)
 
 class Loan(db.Model):
@@ -40,14 +42,14 @@ def get_loans():
     fields = ['id', 'funded_amount', 'profit_loss', 'int_rate', 'grade', 'title', 'purpose', 'desc', 'state']
     loans = Loan.query.filter(
         Loan.funded_amount <= invest_amount,
-        Loan.prob > thresh
-        # Loan.profitable == 1
+        Loan.prob > thresh - LOAN_MARGIN,
+        Loan.prob < thresh + LOAN_MARGIN
         )
     if purpose != 'any':
         loans = loans.filter(
         Loan.purpose == purpose
         )
-    loans = loans.limit(500)
+    loans = loans.limit(100)
     loan_info = [
         { fld: getattr(loan, fld) for fld in fields}
         for loan in loans
