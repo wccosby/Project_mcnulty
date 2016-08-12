@@ -54,6 +54,10 @@
                                 .domain([0, 100])
                                 .range([0, 600]);
 
+    var x = d3.scale.linear()
+            .domain([-100,400])
+            .range([0,chance_scale(loan_pred)]);
+
      var bar = chart.append("g")
                     .attr("class", "bar")
 
@@ -69,7 +73,7 @@
         .attr("y", 15)
         .attr("x", chance_scale(loan_pred-5))
         .attr("text-anchor", "middle")
-        .attr("fill", "white")
+        .attr("fill", "black")
         .attr("font-size", 20)
         .text( loan_pred.toFixed(1) + "%");
 
@@ -106,16 +110,17 @@
                     // var chance = 100 * data[i]["profit_loss"]/parseFloat(data[i]['funded_amount']);
                     // console.log(chance);
                     d3.select("#chancebar")
-                    .attr("width", chance_scale(avg_roi*5));
+                    // .attr("class",function(avg_roi) { return (avg_roi < 0 ? "negative":"positive");})
+                    .attr("width", x(chance_scale(avg_roi)*20));
                     d3.select("#percent_text")
-                    .attr("x", chance_scale(avg_roi*5-5))
+                    .attr("x", x(chance_scale(avg_roi*5-10)))
                     .text(avg_roi.toFixed(1) + "%");
                 }
                 else {
                     d3.select("#chancebar")
-                    .attr("width", chance_scale(avg_roi*5));
+                    .attr("width", x(chance_scale(avg_roi)*5));
                     d3.select("#percent_text")
-                    .attr("x", chance_scale(avg_roi*5-5))
+                    .attr("x", x(chance_scale(avg_roi*5-10)))
                     .text(avg_roi.toFixed(1) + "%");
                 }
             },
