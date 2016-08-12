@@ -49,7 +49,7 @@ def get_loans():
         loans = loans.filter(
         Loan.purpose == purpose
         )
-    loans = loans.limit(100)
+    loans = loans.limit(50)
     loan_info = [
         { fld: getattr(loan, fld) for fld in fields}
         for loan in loans

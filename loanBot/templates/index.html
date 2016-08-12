@@ -65,45 +65,26 @@
 
     // Draw the d3 thing~
     var margin = {top: 20, right: 30, bottom: 40, left: 30},
-                    width = 300 - margin.left - margin.right,
+                    width = 500 - margin.left - margin.right,
                     height = 100 - margin.top - margin.bottom;
-
-
-
-    //  var chance_scale = d3.scale.linear()
-    //                             .domain([0, 100])
-    //                             .range([0, 600]);
 
     var x = d3.scale.linear()
             .range([0,width])
-            .domain([-5,15]);
-
-    // var xAxis = d3.svg.axis()
-    //             .scale(x)
-    //             .orient("bottom");
-
-    // var chart = d3.select("#bar_chart")
-    //                .append("svg:svg")
-    //                .attr("width", 600)
-    //                .attr("height", 100);
+            .domain([-30,30]);
 
     var svg = d3.select('#bar_chart').append("svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
-        //   .append("g")
-        //     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     var bar = svg.append("g")
                 .attr("class", "bar")
                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-                // .call(xAxis);
 
    bar.append("svg:rect")
       .attr("id", "chancebar")
       .attr("class", "bar")
       .attr("x",x(0))
       .attr("width", x(loan_pred) - x(0))
-    //   .attr("transform","translate(" + x(0) + ",0)")
       .attr("height", 50);
 
      bar.append("text")
@@ -206,29 +187,6 @@
         })
     });
 
-    // var num_loans_slider = document.getElementById('num-loans');
-    // var num_loans_value = document.getElementById('num_loans');
-    // noUiSlider.create(num_loans_slider, {
-    //     start: 1,
-    //     connect:'lower',
-    //     orientation:'vertical',
-    //     direction:'rtl',
-    //     tooltips: wNumb({ decimals: 1 }),
-    //     step: 1,
-    //     pips: {
-    //         mode: 'values',
-	// 	    values: [1,2,3,4,5,6,7,8,9,10],
-	// 	    density: 8
-	//     },
-    //     range: {
-    //     'min': 1,
-    //     'max': 10
-    //     },
-    //     format: wNumb({
-    //     decimals: 0
-    //     })
-    // });
-
     var risk_slider = document.getElementById('risk-tolerance');
     var risk_value = document.getElementById('risk');
     noUiSlider.create(risk_slider, {
@@ -252,7 +210,6 @@
     });
 
     var amnt_handle = loan_amnt_slider.getElementsByClassName('noUi-handle');
-    // var num_loans_handle = num_loans_slider.getElementsByClassName('noUi-handle');
     var risk_handle = risk_slider.getElementsByClassName('noUi-handle');
 
     // Controls what happens when sliders are used
@@ -260,9 +217,7 @@
         loan_amount = parseFloat(values[amnt_handle]);
         getAndDrawChance(loan_amount,risk,purpose);
     });
-    // num_loans_slider.noUiSlider.on('update',function(values, num_loans_handle){
-    //     num_loans = parseFloat(values[num_loans_handle]);
-    // });
+
     risk_slider.noUiSlider.on('update',function(values, risk_handle){
         risk = (parseFloat(values[risk_handle])/100);
         getAndDrawChance(loan_amount,risk,purpose);
